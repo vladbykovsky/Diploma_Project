@@ -1,0 +1,66 @@
+<div class="bg-myreg">
+  <div class="container my-center text-white">
+    <div class="text-center" style="padding-top: 10px; padding-bottom: 10px">
+      <img src="../../../assets/icons_back.png">
+      <h1 style="font-size: 40px">Регистрация</h1>
+    </div>
+    <div class="row" style="padding-bottom: 10px">
+      <div class="col-md-12 order-md-1">
+        <h4 class="mb-3 text-center" style="font-size: 25px">Ваши данные:</h4>
+        <form class="needs-validation" style="font-size: 20px" novalidate="">
+
+          <div class="mb-3">
+            <label>Имя</label>
+            <input class="form-control" name="name" [(ngModel)]="studentName" #name="ngModel" required/>
+          </div>
+
+          <div class="mb-3">
+            <label>Фамилия</label>
+            <input class="form-control" name="surname" [(ngModel)]="studentSurname" #surname="ngModel" required/>
+          </div>
+
+          <div class="mb-3">
+            <label>Группа</label>
+            <input class="form-control" name="group" [(ngModel)]="studentGroup" #group="ngModel" required/>
+          </div>
+
+          <div class="mb-3">
+            <label>Логин(мин. 4 символа)</label>
+            <input class="form-control" name="login" [(ngModel)]="account.login" #login="ngModel" required minlength="4">
+          </div>
+
+          <div class="mb-3">
+            <label>Пароль(мин. 6 символов)</label>
+            <input class="form-control" name="password" type="password" [(ngModel)]="account.password" #password="ngModel" required minlength="6">
+          </div>
+
+<!--          <div>-->
+<!--            <label for="role">Роль</label>-->
+<!--            <select id="role" name="role" [(ngModel)]="account.roleByRoleId.id" #role="ngModel" class="form-control">-->
+<!--              <option value="1" selected>Студент</option>-->
+<!--              <option value="2">Староста</option>-->
+<!--              <option value="3">Админ</option>-->
+<!--            </select>-->
+<!--          </div>-->
+
+          <hr class="mb-4 bg-light">
+
+          <button class="btn btn-outline-light btn-lg btn-block" type="submit" (click)="_openModal(template)">Подтвердить</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #template>
+  <div class="container">
+    <h4 class="text-center" style="padding: 10px">Подтвердите номер зачетной книжки</h4>
+    <div class="mb-3">
+      <label>Номер</label>
+      <input class="form-control" name="studentNumber" [(ngModel)]="studentNumber" #name="ngModel" required/>
+    </div>
+    <div class="text-center" style="padding-bottom: 20px">
+      <button class="btn btn-dark" (click)="addAccount(template)">Зарегистрироваться</button>
+    </div>
+  </div>
+</ng-template>

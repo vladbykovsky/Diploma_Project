@@ -1,0 +1,16 @@
+.sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.2rem;
+}
+.list-group {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+.border-right {
+  border-right: 1px solid #dee2e6;
+}
+.bg-light {
+  background-color: #f8f9fa;
+}

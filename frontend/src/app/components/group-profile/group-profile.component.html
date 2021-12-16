@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="col-md-2" style="padding-right: 0; height: 100%">
+    <div class="bg-light border-right">
+      <div class="sidebar-heading" style="border-bottom: 1px solid #dee2e6">Меню</div>
+      <div class="list-group list-group-flush">
+        <a href="" class="list-group-item list-group-item-action bg-light" (click)="loadAbsenceBySubject(4)">АТП</a>
+        <a href="" class="list-group-item list-group-item-action bg-light" (click)="loadAbsenceBySubject(19)">БЖ</a>
+        <a href="" class="list-group-item list-group-item-action bg-light" (click)="loadAbsenceBySubject(18)">Экономика</a>
+      </div>
+  </div>
+  <div *ngIf="absences2" class="col-md-10" style="padding-right: 65px; padding-left: 50px; padding-top: 50px; padding-bottom: 50px">
+
+    <h1 class="text-center"></h1>
+
+    <table class="table table-bordered" style="border: solid 1px #292b2c">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">№</th>
+        <th scope="col">ФИО</th>
+        <th *ngFor="let d of absences2[10]" scope="col">{{d.date}}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let s of students">
+        <td>{{s.id}}</td>
+        <td>{{s.name}} {{s.surname}}</td>
+        <td *ngIf="absences2[s.id].length == 1; then contOne"></td>
+        <td *ngIf="absences2[s.id].length > 1; then contTwo"></td>
+        <td *ngIf="absences2[s.id].length == 0; then contTree"></td>
+        <ng-template #contOne>
+          <td></td>
+          <td>{{absences2[s.id][0].quantity}}ч({{absences2[s.id][0].reason}})</td>
+        </ng-template>
+        <ng-template #contTwo><td *ngFor="let a of absences2[s.id]">{{a.quantity}}ч({{a.reason}})</td></ng-template>
+        <ng-template #contTree><td *ngFor="let a of absences2[10]"></td></ng-template>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

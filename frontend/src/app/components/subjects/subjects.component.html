@@ -1,0 +1,105 @@
+<div style="background: linear-gradient(to bottom, #ffffff 0%, #343a40 98%)">
+<div class="container-fluid" style="padding-bottom: 5px; padding-top: 20px">
+
+  <h1 class="text-center">Личная статистика посещений</h1>
+  <hr style="margin-left: 50px; margin-right: 50px">
+
+  <div class="card mb-12 box-shadow" style="margin-left: 50px; margin-right: 50px;">
+    <div class="card-header">
+      <h3 class="my-0 font-weight-normal">Автоматизация технологичекого проектирования<small class="text-muted">/AТП</small></h3>
+    </div>
+    <div class="card-body">
+      <h4 class="card-title pricing-card-title font-weight-normal" style="margin-bottom: 30px">Кункевич Дмитрий Петрович </h4>
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead class="thead-dark">
+          <tr>
+            <th *ngFor="let dAtp of datesOfAtp">{{dAtp}}</th>
+            <th>Итого</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td *ngFor="let a of absencesOfAtp" (click)="_openModal(template)">{{a}}</td>
+            <td class="table-danger">2ч</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mb-12 box-shadow" style="margin: 50px">
+    <div class="card-header">
+      <h3 class="my-0 font-weight-normal">Основы бизнеса и права<small class="text-muted"></small></h3>
+    </div>
+    <div class="card-body">
+      <h4 class="card-title pricing-card-title font-weight-normal" style="margin-bottom: 30px"></h4>
+      <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+          <th *ngFor="let dBus of datesOfBusiness">{{dBus}}</th>
+          <th>Итого</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td *ngFor="let a of absencesOfBusiness" (click)="_openModal(template)">{{a}}</td>
+          <td class="table-danger">6ч</td>
+          <td *ngIf="auth.account.roleByRoleId.title == 'Староста'" style="border: solid 1px #ffffff">
+            <button class="btn btn-info" (click)="_openModal(template)">Добавить</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card mb-12 box-shadow" style="margin-right: 50px; margin-left: 50px;">
+    <div class="card-header">
+      <h3 class="my-0 font-weight-normal">Основы защиты информации<small class="text-muted"></small></h3>
+    </div>
+    <div class="card-body">
+      <h4 class="card-title pricing-card-title font-weight-normal" style="margin-bottom: 30px">Барышев Артем Александрович</h4>
+      <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+          <th *ngFor="let dOzi of datesOfOzi">{{dOzi}}</th>
+          <th>Итого</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td *ngFor="let a of absencesOfOzi" (click)="_openModal(template)">{{a}}</td>
+          <td class="table-danger">5ч</td>
+          <td *ngIf="auth.account.roleByRoleId.title == 'Староста'" style="border: solid 1px #ffffff">
+            <button class="btn btn-info" (click)="_openModal(template)">Добавить</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <hr class="bg-white" style="margin-right: 50px; margin-left: 50px; margin-top: 50px">
+
+</div>
+</div>
+<ng-template #template>
+  <div class="container">
+    <h4 class="text-center" style="padding: 10px">Редактировать</h4>
+    <div class="mb-3">
+      <label>Количество часов</label>
+      <input class="form-control" name="quantity" required/>
+    </div>
+    <div class="mb-3">
+      <label>Причина</label>
+      <input class="form-control" name="reason" required/>
+    </div>
+    <div class="text-center" style="padding-bottom: 20px">
+      <button class="btn btn-danger" (click)="closeModal(template)" style="margin-right: 20px">Отмена</button>
+      <button class="btn btn-success">Подтвердить</button>
+    </div>
+  </div>
+</ng-template>
+

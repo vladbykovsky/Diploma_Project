@@ -1,0 +1,15 @@
+<div class="bg-mylog">
+<form class="form-signin text-center" style="padding-top: 110px">
+  <img src="../../../assets/icons_back.png"/>
+  <h1 class="h3 mb-3 font-weight-normal text-white">Авторизация</h1>
+  <label for="inputEmail" class="sr-only">Логин</label>
+  <input type="email" id="inputEmail" class="form-control" placeholder="Логин" name="name"
+         [(ngModel)]="account.login" #login="ngModel" required="" autofocus="" style="margin-bottom: 10px">
+  <label for="inputPassword" class="sr-only">Пароль</label>
+  <input type="password" id="inputPassword" class="form-control" placeholder="Пароль" name="password"
+         [(ngModel)]="account.password" #password="ngModel" required="" style="margin-bottom: 10px">
+  <hr class="mb-4 bg-secondary">
+  <button class="btn btn-lg btn-outline-light btn-block" type="submit" (click)="loginUser()">Войти</button>
+  <p class="text-right text-white">У вас нет учетной записи?<a href="" routerLink="/registration"> Регистрация</a></p>
+</form>
+</div>

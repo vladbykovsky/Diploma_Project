@@ -1,0 +1,28 @@
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white border-bottom box-shadow">
+  <h5 class="my-0 font-weight-normal">BNTU</h5>
+  <img src="https://img.icons8.com/wired/60/000000/library.png"/>
+  <h5 class="my-0 mr-md-auto font-weight-normal">SVRS</h5>
+  <nav class="my-2 my-md-0 mr-md-3">
+    <div *ngIf="auth.account">
+      <div *ngIf="auth.account.roleByRoleId.title == 'Студент'">
+        <a class="p-2 text-dark" href="#" routerLink="/">Главная</a>
+        <a class="p-2 text-dark" href="#" [routerLink]="['/group']">Группа</a>
+        <a class="p-2 text-dark" href="#" [routerLink]="['/subjects']">Пропуски</a>
+        <a class="p-2 text-dark" href="#" [routerLink]="['/student']">Мой профиль</a>
+      </div>
+      <div *ngIf="auth.account.roleByRoleId.title == 'Староста'">
+        <a class="p-2 text-dark" href="#" routerLink="/">Главная</a>
+        <a class="p-2 text-dark" href="#" [routerLink]="['/leader']">Управление</a>
+        <a class="p-2 text-dark" href="#" [routerLink]="['/group']">Группа</a>
+        <a class="p-2 text-dark" href="#" [routerLink]="['/subjects']">Пропуски</a>
+        <a class="p-2 text-dark" href="#" [routerLink]="['/student']">Мой профиль</a>
+      </div>
+      <div *ngIf="auth.account.roleByRoleId.title == 'Админ'">
+        <a class="p-2 text-dark" href="#" [routerLink]="['/admin']">Администрирование</a>
+      </div>
+    </div>
+  </nav>
+  <a *ngIf="!auth.account" class="btn btn-outline-dark" style="margin-right: 5px" href="#" routerLink="/registration">Регистрация</a>
+  <a *ngIf="!auth.account" class="btn btn-outline-dark" href="#" routerLink="/login">Войти</a>
+  <a *ngIf="auth.account" class="p-2 btn btn-outline-dark" href="#" routerLink="/login" (click)="auth.logOut()">Выйти</a>
+</div>

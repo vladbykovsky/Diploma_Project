@@ -1,0 +1,164 @@
+<div class="container-fluid" style="padding-top: 20px; width: 1600px">
+
+  <h1 class="text-center">Панель управления</h1>
+  <hr>
+
+
+  <ul class="nav nav-tabs" style="margin-bottom: 10px">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#students" style="color: black">Студенты</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#absences" style="color: black">Пропуски</a>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="students" class="tab-pane active">
+      <div class="table-responsive" style="padding-top: 20px">
+      <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+          <th>№</th>
+          <th>ФИО</th>
+          <th>Телефон</th>
+          <th>Почта</th>
+          <th>Город</th>
+          <th>Дата рождения</th>
+          <th colspan="2" class="text-center">Действие</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let s of students">
+          <td>{{s.id}}</td>
+          <td>{{s.surname}} {{s.name}}</td>
+          <td>{{s.telephone}}</td>
+          <td>{{s.mail}}</td>
+          <td>{{s.city}}</td>
+          <td>{{s.birthday}}</td>
+          <td class="text-center" style="border-right: solid 0px lightgrey;">
+            <button class="btn btn-outline-secondary" (click)="openModal(templateRed, s)">Редактировать</button>
+          </td>
+          <td class="text-center" style="border-left: solid 0px lightgrey">
+            <button class="btn btn-outline-danger" (click)="openModal(templateDel, s)">Удалить</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <div id="absences" class="tab-pane fade">
+      <div *ngIf="subject" class="text-center" style="padding: 20px">
+        <div>
+          <label style="font-size: 20px; padding-right: 20px">Предмет:</label>
+          <label>
+            <select name="subject" class="form-control" style="border: solid 0px">
+              <option value="4" selected>АТП</option>
+              <option value="19">БЖ</option>
+              <option value="18">Экономика</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead class="thead-dark">
+          <tr>
+            <th scope="col">№</th>
+            <th scope="col">ФИО</th>
+            <th scope="col" *ngFor="let d of datesOfAtp">{{d}}</th>
+            <th class="text-center">Действие</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let s of students">
+            <td>{{s.id}}</td>
+
+            <td *ngIf="auth.account.studentByStudentId.id == s.id" class="table-success">{{s.name}} {{s.surname}}</td>
+            <td *ngIf="auth.account.studentByStudentId.id != s.id">{{s.name}} {{s.surname}}</td>
+
+            <td *ngFor="let a of absencesOfAtp[s.id-1]">{{a}}</td>
+            <td><button class="btn btn-outline-secondary" (click)="openModal(templateNew, s)">Добавить</button></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <hr class="bg-light" style="">
+
+</div>
+
+<ng-template #templateRed>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Редактировать</h4>
+    <button type="button" class="close pull-right"
+            aria-label="Close" (click)="closeModal(templateRed)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label>Телефон</label>
+      <input class="form-control" name="telephone" [(ngModel)]="editStudent.telephone" #telephone ="ngModel" required/>
+    </div>
+    <div class="form-group">
+      <label>Почта</label>
+      <input class="form-control" name="mail" [(ngModel)]="editStudent.mail" #mail="ngModel" required/>
+    </div>
+    <div class="form-group">
+      <label>Город</label>
+      <input class="form-control" name="city" [(ngModel)]="editStudent.city" #city="ngModel" required/>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger" (click)="closeModal(templateRed)" style="margin-right: 20px">Отмена</button>
+    <button class="btn btn-success">Подтвердить</button>
+  </div>
+</ng-template>
+
+<ng-template #templateDel>
+  <div class="container">
+    <h4 class="text-center" style="padding: 10px">Удаление</h4>
+    <div class="form-group text-center">
+      <h5>Вы действительно хотите удалить студента?</h5>
+    </div>
+    <div class="text-center" style="padding-bottom: 20px">
+      <button class="btn btn-danger" (click)="closeModal(templateDel)" style="margin-right: 20px">Отмена</button>
+      <button class="btn btn-success">Подтвердить</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #templateNew>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Добавить</h4>
+    <button type="button" class="close pull-right"
+            aria-label="Close" (click)="closeModal(templateNew)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label>Дата(yyyy:mm:dd)</label>
+      <input class="form-control" name="data" required/>
+    </div>
+    <div class="form-group">
+      <label>Количество часов</label>
+      <input class="form-control" name="quantity" required/>
+    </div>
+    <div class="form-group">
+      <label>Причина</label>
+      <input class="form-control" name="reason" required/>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger" (click)="closeModal(templateNew)" style="margin-right: 20px">Отмена</button>
+    <button class="btn btn-success">Подтвердить</button>
+  </div>
+</ng-template>
+

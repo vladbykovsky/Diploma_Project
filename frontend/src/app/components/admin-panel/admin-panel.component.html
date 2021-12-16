@@ -1,0 +1,286 @@
+<div class="container-fluid" style="padding-top: 20px; width: 1600px">
+
+  <h1 class="text-center">Панель управления</h1>
+  <hr>
+
+
+  <ul class="nav nav-tabs" style="margin-bottom: 10px">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#accounts" style="color: black">Аккаунты</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#groups" style="color: black">Группы</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#subjects" style="color: black">Предметы</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#specialties" style="color: black">Специальности</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#teachers" style="color: black">Преподаватели</a>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="accounts" class="tab-pane active">
+      <div class="table-responsive" style="padding-top: 20px">
+        <table class="table table-bordered">
+          <thead class="thead-dark">
+          <tr>
+            <th>Id</th>
+            <th>Логин</th>
+            <th>Роль</th>
+            <th>Студент</th>
+            <th colspan="2" class="text-center">Действие</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let a of accounts">
+            <td>{{a.id}}</td>
+            <td>{{a.login}}</td>
+            <td>{{a.roleByRoleId.title}}</td>
+            <td *ngIf="a.roleByRoleId.id != 3">{{a.studentByStudentId.name}} {{a.studentByStudentId.surname}}</td>
+            <td *ngIf="a.roleByRoleId.id == 3"></td>
+            <td class="text-center" style="border-right: solid 0px lightgrey; width: 100px">
+              <button class="btn btn-outline-secondary" (click)="openModal(templateRed)">Редактировать</button>
+            </td>
+            <td class="text-center" style="border-left: solid 0px lightgrey; width: 100px">
+              <button class="btn btn-outline-danger" (click)="openModal(templateDel)">Удалить</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="groups" class="tab-pane fade">
+      <div class="table-responsive" style="padding-top: 20px">
+        <table class="table table-bordered">
+          <thead class="thead-dark">
+          <tr>
+            <th>Id</th>
+            <th>Название</th>
+            <th>Курс</th>
+            <th>Специальность</th>
+            <th colspan="2" class="text-center">Действие</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let g of groups">
+            <td>{{g.id}}</td>
+            <td>{{g.title}}</td>
+            <td>{{g.course}}</td>
+            <td>{{g.specialtyId}}</td>
+            <td>
+              <button class="btn btn-outline-secondary" (click)="openModal(templateRed)">Редактировать</button>
+            </td>
+            <td>
+              <button class="btn btn-outline-danger" (click)="openModal(templateDel)">Удалить</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="specialties" class="tab-pane fade">
+      <div class="table-responsive" style="padding-top: 20px">
+        <table class="table table-bordered">
+          <thead class="thead-dark">
+          <tr>
+            <th>Id</th>
+            <th>Название</th>
+            <th>Код</th>
+            <th>Факультет</th>
+            <th colspan="2" class="text-center">Действие</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let s of specialties">
+            <td>{{s.id}}</td>
+            <td>{{s.title}}</td>
+            <td>{{s.code}}</td>
+            <td>{{s.faculty.title}}</td>
+            <td class="text-center" style="border-right: solid 0px lightgrey; width: 100px">
+              <button class="btn btn-outline-secondary" (click)="openModal(templateRed)">Редактировать</button>
+            </td>
+            <td class="text-center" style="border-left: solid 0px lightgrey; width: 100px">
+              <button class="btn btn-outline-danger" (click)="openModal(templateDel)">Удалить</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="subjects" class="tab-pane fade">
+      <div class="table-responsive" style="padding-top: 20px">
+        <table class="table table-bordered">
+          <thead class="thead-dark">
+          <tr>
+            <th>Id</th>
+            <th>Код</th>
+            <th>Название</th>
+            <th>Преподаватель</th>
+            <th colspan="2" class="text-center">Действие</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let s of subjects">
+            <td>{{s.id}}</td>
+            <td>{{s.title}}</td>
+            <td>{{s.fullTitle}}</td>
+            <td>{{s.teacherByTeacherId.surname}} {{s.teacherByTeacherId.name}}</td>
+            <td class="text-center" style="border-right: solid 0px lightgrey; width: 100px">
+              <button class="btn btn-outline-secondary" (click)="openModal(templateRed)">Редактировать</button>
+            </td>
+            <td class="text-center" style="border-left: solid 0px lightgrey; width: 100px">
+              <button class="btn btn-outline-danger" (click)="openModal(templateDel)">Удалить</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="teachers" class="tab-pane fade">
+      <div class="table-responsive" style="padding-top: 20px">
+        <table class="table table-bordered">
+          <thead class="thead-dark">
+          <tr>
+            <th>Id</th>
+            <th>Имя</th>
+            <th>Телефон</th>
+            <th>Почта</th>
+            <th colspan="2" class="text-center">Действие</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let t of teachers">
+            <td>{{t.id}}</td>
+            <td>{{t.surname}} {{t.name}} {{t.middleName}}</td>
+            <td>{{t.telephone}}</td>
+            <td>{{t.mail}}</td>
+            <td class="text-center" style="border-right: solid 0px lightgrey; width: 100px">
+              <button class="btn btn-outline-secondary" (click)="openModal(templateRedPrep)">Редактировать</button>
+            </td>
+            <td class="text-center" style="border-left: solid 0px lightgrey; width: 100px">
+              <button class="btn btn-outline-danger" (click)="openModal(templateDel)">Удалить</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center" style="padding-top: 20px; padding-bottom: 20px">
+    <button class="btn btn-primary" style="width: 200px;" (click)="openModal(templateNew)">Добавить</button>
+  </div>
+
+  <hr>
+
+</div>
+
+<ng-template #templateRedPrep>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Редактировать</h4>
+    <button type="button" class="close pull-right"
+            aria-label="Close" (click)="closeModal(templateRedPrep)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-header">
+    <h4 class="modal-title text-center">Бородуля Алексей Валентинович</h4>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label>Телефон</label>
+      <input class="form-control" placeholder="80297722195" required/>
+    </div>
+    <div class="form-group">
+      <label>Почта</label>
+      <input class="form-control" placeholder="AVBorodulya@bntu.by" required/>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger" (click)="closeModal(templateRedPrep)" style="margin-right: 20px">Отмена</button>
+    <button class="btn btn-success">Подтвердить</button>
+  </div>
+</ng-template>
+
+<ng-template #templateRed>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Редактировать</h4>
+    <button type="button" class="close pull-right"
+            aria-label="Close" (click)="closeModal(templateRed)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-header">
+    <h4 class="modal-title text-center">Предмет:</h4>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label>Код</label>
+      <input class="form-control" placeholder="МРО" required/>
+    </div>
+    <div class="form-group">
+      <label>Название</label>
+      <input class="form-control" placeholder="Методы распознования образов" required/>
+    </div>
+    <div class="form-group">
+      <label>Преподаватель(ID)</label>
+      <input class="form-control" placeholder="8" required/>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger" (click)="closeModal(templateRed)" style="margin-right: 20px">Отмена</button>
+    <button class="btn btn-success">Подтвердить</button>
+  </div>
+</ng-template>
+
+<ng-template #templateDel>
+  <div class="container">
+    <h4 class="text-center" style="padding: 10px">Удаление</h4>
+    <div class="form-group text-center">
+      <h5>Вы действительно хотите удалить студента?</h5>
+    </div>
+    <div class="text-center" style="padding-bottom: 20px">
+      <button class="btn btn-danger" (click)="closeModal(templateDel)" style="margin-right: 20px">Отмена</button>
+      <button class="btn btn-success">Подтвердить</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #templateNew>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Добавить</h4>
+    <button type="button" class="close pull-right"
+            aria-label="Close" (click)="closeModal(templateNew)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-header">
+    <h4 class="modal-title text-center">Специальность:</h4>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label>Название</label>
+      <input class="form-control" name="data" required/>
+    </div>
+    <div class="form-group">
+      <label>Код</label>
+      <input class="form-control" name="quantity" required/>
+    </div>
+    <div class="form-group">
+      <label>Факультет(ID)</label>
+      <input class="form-control" name="reason" required/>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger" (click)="closeModal(templateNew)" style="margin-right: 20px">Отмена</button>
+    <button class="btn btn-success">Подтвердить</button>
+  </div>
+</ng-template>
